@@ -10,9 +10,14 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    @IBOutlet weak var uiLabelToShow: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        //Will be invoked when app goes to background
+        NotificationCenter.default.addObserver(self, selector: #selector(myBGObserver), name: .UIApplicationWillResignActive, object: nil)
+        //Will be invoked when app goes to foreground
+        NotificationCenter.default.addObserver(self, selector: #selector(myFGObserver), name: .UIApplicationWillEnterForeground, object: nil)
     }
 
     override func didReceiveMemoryWarning() {
@@ -20,6 +25,11 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
-
+    @objc func myBGObserver(){
+        uiLabelToShow.text = "Background";
+    }
+    @objc func myFGObserver(){
+        uiLabelToShow.text = "Foreground";
+    }
 }
 
